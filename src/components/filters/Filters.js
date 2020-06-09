@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Form from 'react-bootstrap/Form';
 import Datetime from '../DateTime/Datetime';   
 import Button from 'react-bootstrap/Button';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const Styles = styled.div`
 .react-datetime-picker{
@@ -22,6 +23,9 @@ const Styles = styled.div`
         color:#a3ef5d;
     }
 `;
+function book() {
+    window.location.href="/reservation"
+  }
 export const Filters = () =>(
     <Styles>
     <Form>
@@ -37,7 +41,7 @@ export const Filters = () =>(
             
         </Form.Group>
         <Datetime></Datetime>
-        <Button variant="primary" size="lg" block className="green-btn">
+        <Button variant="primary" size="lg" block className="green-btn" onClick={book}>
             BOOK NOW
         </Button>
     </Form>
