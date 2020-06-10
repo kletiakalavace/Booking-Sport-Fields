@@ -10,6 +10,7 @@ const Styles = styled.div`
 export const Reservation = () =>(
     
     <Styles>
+        <h2>you have choice:  </h2>
     <Form>
     <Slider/>
         <Form.Group controlId="formBasicEmail">

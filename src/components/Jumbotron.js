@@ -1,7 +1,7 @@
 import React from 'react';
-import {Jumbotron as Jumbo, Container} from 'react-bootstrap';
+import {Jumbotron as Jumbo} from 'react-bootstrap';
 import styled from 'styled-components';
-import {Filters} from './filters/Filters'
+import Filters from './filters/Filters'
 import fieldImage from '../assets/field_background.png';
 
 const Styles = styled.div`

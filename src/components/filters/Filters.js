@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
 import Form from 'react-bootstrap/Form';
 import Datetime from '../DateTime/Datetime';   
 import Button from 'react-bootstrap/Button';
-import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const Styles = styled.div`
 .react-datetime-picker{
@@ -23,27 +23,53 @@ const Styles = styled.div`
         color:#a3ef5d;
     }
 `;
-function book() {
-    window.location.href="/reservation"
-  }
-export const Filters = () =>(
-    <Styles>
-    <Form>
-        <Form.Group controlId="exampleForm.SelectCustomSizeLg">
-            <Form.Label>Zgjidh fushen</Form.Label>
-            <Form.Control as="select" size="lg" custom>
-                <option></option>
-                <option>Fusha 1</option>
-                <option>Fusha 2</option>
-                <option>Fusha 3</option>
-                <option>Fusha 4</option>
-            </Form.Control>
-            
-        </Form.Group>
-        <Datetime></Datetime>
-        <Button variant="primary" size="lg" block className="green-btn" onClick={book}>
-            BOOK NOW
-        </Button>
-    </Form>
-    </Styles>
-)
+
+class Filters extends Component{
+    
+    constructor(props) {
+        super(props);
+        this.state = {value: ' '};
+    
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleChange(event) {
+        this.setState({value: event.target.value});
+        alert('Your favorite field is: ' + this.state.value);
+    }
+    handleSubmit(event) {
+        alert('Your favorite flavor is: ' + this.state.value);
+        event.preventDefault();
+      }
+    bookContinuedHandler = () =>{
+        this.props.history.push('/reservation');
+    }
+    
+    render(){
+		return(
+			<div>
+				<Styles>
+                    <Form onSubmit={this.handleSubmit}>
+                        <Form.Group controlId="exampleForm.SelectCustomSizeLg">
+                            <Form.Label>Zgjidh fushen</Form.Label>
+                            <Form.Control as="select" size="lg" custom value={this.state.value} onChange={this.handleChange}>
+                                <option value="fusha1">Fusha 1</option>
+                                <option value="fusha2">Fusha 2</option>
+                                <option value="fusha3">Fusha 3</option>
+                                <option value="fusha4">Fusha 4</option>
+                            </Form.Control>
+                            
+                        </Form.Group>
+                        <Datetime></Datetime>
+                        <Button variant="primary" size="lg" block className="green-btn" type="submit" value="Submit" onClick={this.bookContinuedHandler}>
+                            BOOK NOW
+                        </Button>
+                    </Form>
+                </Styles>
+                
+			</div>
+		);
+	}
+
+}  
+export default withRouter(Filters);
