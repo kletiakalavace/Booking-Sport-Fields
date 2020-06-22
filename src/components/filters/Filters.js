@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Datetime from '../DateTime/Datetime';   
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
+import {db}  from '../../Firestore';
 
 const Styles = styled.div`
 .react-datetime-picker{
@@ -24,44 +25,92 @@ const Styles = styled.div`
     }
 `;
 
+
+
 class Filters extends Component{
+    state = {
+        fields: [],
+        date:null,
+        error:false
+    };
+    componentDidMount = () => {
+        // db.collection("fields").doc("field_1").update({
+        //     location: "Tirane"
+        // })
+        // .then(function() {
+        //     console.log("Document successfully written!");
+        // })
+        // .catch(function(error) {
+        //     console.error("Error writing document: ", error);
+        // });
+
+
+        db.collection("fields")
+        .get()
+        .then(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => doc.data());
+        console.log(data); // array of cities objects
+        });
+
+      
+    };
+
+    // constructor(props) {
+    //     super(props);
+    //     this.state = ' ';
     
-    constructor(props) {
-        super(props);
-        this.state = {value: ' '};
-    
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    //     this.handleChange = this.handleChange.bind(this);
+    //     this.handleSubmit = this.handleSubmit.bind(this);
+    // }
     handleChange(event) {
-        this.setState({value: event.target.value});
-        alert('Your favorite field is: ' + this.state.value);
+        this.setState({label: event.target.value});
+        
     }
     handleSubmit(event) {
-        alert('Your favorite flavor is: ' + this.state.value);
-        event.preventDefault();
+        alert('Your favorite flavor is: ' + this.state.fields);
+    event.preventDefault();
+    this.props.history.push('/reservation');
       }
-    bookContinuedHandler = () =>{
-        this.props.history.push('/reservation');
-    }
-    
+    // bookContinuedHandler = () =>{
+    //     this.props.history.push('/reservation');
+    // }
     render(){
+
+        // return Object.keys(this.state.fields).map( (key) => {
+        //     return <p>{key} => {this.state.fields[key]}</p>;
+        // });
+    
 		return(
 			<div>
 				<Styles>
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group controlId="exampleForm.SelectCustomSizeLg">
                             <Form.Label>Zgjidh fushen</Form.Label>
-                            <Form.Control as="select" size="lg" custom value={this.state.value} onChange={this.handleChange}>
-                                <option value="fusha1">Fusha 1</option>
-                                <option value="fusha2">Fusha 2</option>
-                                <option value="fusha3">Fusha 3</option>
-                                <option value="fusha4">Fusha 4</option>
-                            </Form.Control>
-                            
+                                <Form.Control
+                                 as="select" 
+                                 size="lg" 
+                                 custom value={this.state.value} 
+                                 onChange={this.handleChange}>
+                                     <option
+                                        label={this.state.value}>{this.state.value}
+                                    </option> */}
+
+{/* Object.keys(this.state.fields).map( (key) => {
+         return <option {key} =>
+        label={this.state.fields[key]}>{this.state.fields[key]}</option> })
+
+ 
+                                    
+                                    {/* {this.state.fields.map(ctrl =>( <option
+                                                label={this.state.fields}>{this.state.fields}</option>
+                                        ))}
+
+                                        ))} */}
+
+                                </Form.Control>
                         </Form.Group>
                         <Datetime></Datetime>
-                        <Button variant="primary" size="lg" block className="green-btn" type="submit" value="Submit" onClick={this.bookContinuedHandler}>
+                        <Button variant="primary" size="lg" block className="green-btn" type="submit" value="Submit" >
                             BOOK NOW
                         </Button>
                     </Form>

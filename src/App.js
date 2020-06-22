@@ -5,14 +5,13 @@ import {About} from './About';
 import {Contact} from './Contact';
 import {Reservation} from './Reservation';
 import {NoMatch} from './NoMatch';
-import {Layout} from './components/Layout';
 import {NavigationBar} from './components/NavigationBar';
+import {Footer} from './components/Footer';
 
 function App() {
   return (
     <React.Fragment>
       <NavigationBar/>
-      <Layout>
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -22,7 +21,7 @@ function App() {
             <Route component={NoMatch} />
           </Switch>
         </Router>
-      </Layout>
+        <Footer/>
     </React.Fragment>
   );
 }

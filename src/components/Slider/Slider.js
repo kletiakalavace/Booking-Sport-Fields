@@ -1,6 +1,6 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import fieldImage from '../../assets/field_background.png';
+import fieldImage from '../../assets/field_background_1.png';
 
 export const Slider = () =>(
 <Carousel>
