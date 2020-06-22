@@ -28,40 +28,20 @@ const Styles = styled.div`
 
 
 class Filters extends Component{
-    state = {
-        fields: [],
-        date:null,
-        error:false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataFields: []
+        };
+      }
     componentDidMount = () => {
-        // db.collection("fields").doc("field_1").update({
-        //     location: "Tirane"
-        // })
-        // .then(function() {
-        //     console.log("Document successfully written!");
-        // })
-        // .catch(function(error) {
-        //     console.error("Error writing document: ", error);
-        // });
-
-
         db.collection("fields")
         .get()
         .then(querySnapshot => {
-        const data = querySnapshot.docs.map(doc => doc.data());
-        console.log(data); // array of cities objects
+           this.setState({dataFields : querySnapshot.docs.map(doc => doc.data())});
         });
-
-      
     };
 
-    // constructor(props) {
-    //     super(props);
-    //     this.state = ' ';
-    
-    //     this.handleChange = this.handleChange.bind(this);
-    //     this.handleSubmit = this.handleSubmit.bind(this);
-    // }
     handleChange(event) {
         this.setState({label: event.target.value});
         
@@ -76,10 +56,15 @@ class Filters extends Component{
     // }
     render(){
 
-        // return Object.keys(this.state.fields).map( (key) => {
-        //     return <p>{key} => {this.state.fields[key]}</p>;
-        // });
-    
+        const { dataFields } = this.state;
+
+        let dataFieldsList = dataFields.length > 0
+    	&& dataFields.map((item, i) => {
+            return (
+            <option key={i} value={item.label}>{item.label}</option>
+        )
+        }, this);
+        console.log('kletia', dataFields);
 		return(
 			<div>
 				<Styles>
@@ -91,22 +76,7 @@ class Filters extends Component{
                                  size="lg" 
                                  custom value={this.state.value} 
                                  onChange={this.handleChange}>
-                                     <option
-                                        label={this.state.value}>{this.state.value}
-                                    </option> */}
-
-{/* Object.keys(this.state.fields).map( (key) => {
-         return <option {key} =>
-        label={this.state.fields[key]}>{this.state.fields[key]}</option> })
-
- 
-                                    
-                                    {/* {this.state.fields.map(ctrl =>( <option
-                                                label={this.state.fields}>{this.state.fields}</option>
-                                        ))}
-
-                                        ))} */}
-
+                                      {dataFieldsList}
                                 </Form.Control>
                         </Form.Group>
                         <Datetime></Datetime>
