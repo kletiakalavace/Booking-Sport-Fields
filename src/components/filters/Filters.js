@@ -31,7 +31,8 @@ class Filters extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            dataFields: []
+            dataFields: [],
+            oldField:''
         };
       }
     componentDidMount = () => {
@@ -42,18 +43,17 @@ class Filters extends Component{
         });
     };
 
-    handleChange(event) {
-        this.setState({label: event.target.value});
-        
-    }
-    handleSubmit(event) {
-        alert('Your favorite flavor is: ' + this.state.fields);
-    event.preventDefault();
-    this.props.history.push('/reservation');
-      }
-    // bookContinuedHandler = () =>{
-    //     this.props.history.push('/reservation');
-    // }
+    handleChange = (event) => {
+          this.setState({oldField: event.target.value});
+          console.log('change',  event.target.value);
+    };
+
+    handleSubmit = (event) => {
+        console.log('Your favorite field is: ', this.state.oldField);
+     event.preventDefault();
+    //this.props.history.push('/reservation');
+      };
+      
     render(){
 
         const { dataFields } = this.state;
@@ -64,7 +64,7 @@ class Filters extends Component{
             <option key={i} value={item.label}>{item.label}</option>
         )
         }, this);
-        console.log('kletia', dataFields);
+        console.log('fushat', dataFields);
 		return(
 			<div>
 				<Styles>
