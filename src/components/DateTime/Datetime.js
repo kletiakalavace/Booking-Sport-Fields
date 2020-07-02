@@ -7,14 +7,16 @@ class DateTime extends Component {
     date: new Date(),
   }
  
-  onChange = date => this.setState({ date })
+  handleChange = (date) => {
+    this.setState({ date });
+    console.log('date',date);
+  };
  
   render() {
     return (
       <div>
         <DateTimePicker
-          onChange={this.onChange}
-          value={this.state.date}
+          onChange={this.handleChange}
         />
       </div>
     );
