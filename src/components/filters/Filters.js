@@ -45,7 +45,6 @@ class Filters extends Component{
         .then(querySnapshot => {
            this.setState({dataFields : querySnapshot.docs.map(doc => doc.data())});
         });
-       console.log('data',this.state.dataFields);
     };
 
     handleChange = (event) => {
@@ -93,8 +92,10 @@ class Filters extends Component{
 
         // this.setState({currentDate: this.state.date});
         console.log('fushat', dataFields);
+        //let dbData  = this.state.date
+        //console.log('dataDB', new Date(dbData).toString());
        // const timestamp = new Date();
-       // const timestamp = this.state.dataFields.date;
+       // const timestamp = this.state.dataFields.new Date();
         //const ourDate= new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp);
         //console.log('data return', new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp));
       

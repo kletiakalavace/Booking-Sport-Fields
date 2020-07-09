@@ -1,13 +1,37 @@
-import React from 'react';
+import React, {Component} from 'react';
+import storage from "../../Firestore";
 import Carousel from 'react-bootstrap/Carousel';
-import fieldImage from '../../assets/field_background_1.png';
+import fieldImage from '../../assets/imgfields1.jpg';
 
-export const Slider = () =>(
-<Carousel>
+
+
+
+class Slider extends Component {
+  constructor () {
+    super()
+    this.state = {
+      imgfields1: '',
+      imgfields2: ''
+    }
+    this.getImage('imgfields1')
+    this.getImage('imgfields2')
+  }
+  getImage (image) {
+    let { state } = this
+    storage.child(`${image}.jpg`).getDownloadURL().then((url) => {
+      state[image] = url
+      this.setState(state)
+    }).catch((error) => {
+      // Handle any errors
+    })
+  }
+  render() {
+    return (
+      <Carousel>
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src={fieldImage}
+      src={ this.state.imgfields1} 
       alt="First slide"
     />
     <Carousel.Caption>
@@ -18,7 +42,7 @@ export const Slider = () =>(
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src={fieldImage}
+      src={ this.state.imgfields2}
       alt="Third slide"
     />
 
@@ -27,17 +51,9 @@ export const Slider = () =>(
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </Carousel.Caption>
   </Carousel.Item>
-  <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src={fieldImage}
-      alt="Third slide"
-    />
-
-    <Carousel.Caption>
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
 </Carousel>
-)
+    )
+  }
+}
+
+export default Slider;

@@ -2,7 +2,7 @@ import React from 'react';
 import {Jumbotron as Jumbo} from 'react-bootstrap';
 import styled from 'styled-components';
 import Filters from './filters/Filters'
-import fieldImage from '../assets/field_background.jpg';
+import fieldImage from '../assets/imgfields2.jpg';
 
 const Styles = styled.div`
     .jumbtron{
